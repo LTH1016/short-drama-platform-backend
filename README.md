@@ -1,157 +1,530 @@
-# 短剧平台后端API
+# 🎬 Short Drama Platform Backend
 
-基于Node.js + Express + TypeScript + MongoDB构建的短剧平台后端服务。
+A comprehensive, production-ready backend API for the Short Drama Platform, built with modern technologies including Node.js, Express, TypeScript, MongoDB, and Redis. Features robust authentication, advanced search capabilities, and scalable architecture.
 
-## 🚀 功能特性
+## ✨ Features
 
-### Phase 1 - 基础功能 ✅
-- ✅ 短剧管理 (CRUD操作)
-- ✅ 分类管理
-- ✅ 搜索功能
-- ✅ 推荐系统 (热门/最新/趋势)
-- ✅ 缓存机制 (Redis)
-- ✅ API限流保护
-- ✅ 错误处理和日志
+### 🎯 Core Features
+- **RESTful API**: Complete REST API with comprehensive drama management
+- **JWT Authentication**: Secure token-based authentication and authorization
+- **MongoDB Integration**: Robust database layer with Mongoose ODM
+- **Redis Caching**: High-performance caching for optimal response times
+- **Advanced Search**: Full-text search with filters, suggestions, and recommendations
+- **Category System**: Hierarchical drama categorization and management
+- **User Management**: Complete user profiles, preferences, and favorites system
+- **Rate Limiting**: API protection with configurable rate limiting
+- **Comprehensive Logging**: Structured logging with Winston for monitoring
+- **Input Validation**: Robust request validation with express-validator
 
-### Phase 2 - 用户系统 (待实现)
-- 🔄 用户注册/登录
-- 🔄 JWT身份认证
-- 🔄 权限管理
+### 🛡️ Security Features
+- **Password Hashing**: bcryptjs for secure password storage
+- **CORS Protection**: Configurable cross-origin resource sharing
+- **Security Headers**: Helmet.js for enhanced security
+- **Error Handling**: Secure error responses without information leakage
+- **Input Sanitization**: Protection against injection attacks
 
-### Phase 3 - 高级功能 (待实现)
-- 🔄 个性化推荐
-- 🔄 全文搜索 (Elasticsearch)
-- 🔄 数据分析
+### 🚀 Performance Features
+- **Connection Pooling**: Optimized database connections
+- **Response Compression**: Gzip compression for faster responses
+- **Database Indexing**: Optimized MongoDB indexes for fast queries
+- **Pagination**: Efficient data pagination for large datasets
+- **Caching Strategy**: Multi-layer caching with Redis
 
-### Phase 4 - 互动功能 (待实现)
-- 🔄 收藏系统
-- 🔄 观看历史
-- 🔄 评论系统
+## 🛠️ Tech Stack
 
-## 🛠️ 技术栈
+- **Runtime**: Node.js 18+
+- **Framework**: Express.js 4.x
+- **Language**: TypeScript 5.x
+- **Database**: MongoDB 6.x with Mongoose ODM
+- **Cache**: Redis 7.x
+- **Authentication**: JWT (jsonwebtoken)
+- **Validation**: express-validator
+- **Security**: helmet, cors, bcryptjs
+- **Logging**: Winston with multiple transports
+- **Testing**: Jest with TypeScript support
+- **Development**: nodemon, ts-node
 
-- **运行时**: Node.js 18+
-- **框架**: Express.js
-- **语言**: TypeScript
-- **数据库**: MongoDB
-- **缓存**: Redis
-- **验证**: Joi + express-validator
-- **日志**: Winston
-- **安全**: Helmet + CORS + Rate Limiting
+## 📦 Installation
 
-## 📦 安装和运行
+### Prerequisites
+- Node.js 18+
+- MongoDB 6+
+- Redis 7+
+- npm or yarn
 
-### 环境要求
+### Quick Start
 
-- Node.js >= 18.0.0
-- MongoDB >= 5.0
-- Redis >= 6.0 (可选，用于缓存)
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/LTH1016/short-drama-platform-backend.git
+   cd short-drama-platform-backend
+   ```
 
-### 安装依赖
+2. **Install dependencies**
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
 
-```bash
-npm install
-# 或
-yarn install
-# 或
-pnpm install
-```
+3. **Environment Setup**
+   ```bash
+   cp .env.example .env
+   ```
 
-### 环境配置
+   Configure your `.env` file:
+   ```env
+   # Server Configuration
+   PORT=3001
+   NODE_ENV=development
 
-复制环境变量模板：
+   # Database
+   MONGODB_URI=mongodb://localhost:27017/short-drama-platform
 
-```bash
-cp .env.example .env
-```
+   # Redis Cache
+   REDIS_URL=redis://localhost:6379
 
-编辑 `.env` 文件，配置以下变量：
+   # JWT Configuration
+   JWT_SECRET=your-super-secret-jwt-key-min-32-chars
+   JWT_EXPIRES_IN=7d
+   JWT_REFRESH_SECRET=your-refresh-secret-key
+   JWT_REFRESH_EXPIRES_IN=30d
 
-```env
-# 服务器配置
-NODE_ENV=development
-PORT=3001
-API_PREFIX=/api/v1
+   # CORS
+   FRONTEND_URL=http://localhost:3000
 
-# 数据库配置
-MONGODB_URI=mongodb://localhost:27017/drama-platform
+   # Rate Limiting
+   RATE_LIMIT_WINDOW_MS=900000
+   RATE_LIMIT_MAX_REQUESTS=100
+   ```
 
-# Redis配置 (可选)
-REDIS_HOST=localhost
-REDIS_PORT=6379
+4. **Start Services**
+   ```bash
+   # Using Docker (Recommended)
+   docker-compose up -d
 
-# JWT配置 (Phase 2需要)
-JWT_SECRET=your-super-secret-jwt-key
+   # Or start services manually
+   mongod --dbpath /your/db/path
+   redis-server
+   ```
 
-# CORS配置
-CORS_ORIGIN=http://localhost:3000
-```
+5. **Initialize Database**
+   ```bash
+   # Seed with sample data
+   npm run seed
+   ```
 
-### 数据库初始化
+6. **Start Development Server**
+   ```bash
+   npm run dev
+   ```
 
-运行数据初始化脚本：
+   Server will start at `http://localhost:3001`
 
-```bash
-npm run seed
-# 或
-npx ts-node src/scripts/seedData.ts
-```
+## 📜 Available Scripts
 
-### 启动服务
+- `npm run dev` - Start development server with hot reload
+- `npm run build` - Build TypeScript to JavaScript
+- `npm start` - Start production server
+- `npm test` - Run test suite
+- `npm run test:watch` - Run tests in watch mode
+- `npm run test:coverage` - Run tests with coverage report
+- `npm run lint` - Run ESLint
+- `npm run lint:fix` - Fix ESLint issues
+- `npm run seed` - Seed database with sample data
+- `npm run clean` - Clean build directory
 
-```bash
-# 开发模式
-npm run dev
+## 📚 API Documentation
 
-# 生产模式
-npm run build
-npm start
-```
-
-## 📚 API文档
-
-### 基础信息
+### Base Information
 
 - **Base URL**: `http://localhost:3001/api/v1`
 - **Content-Type**: `application/json`
+- **Authentication**: Bearer Token (JWT)
 
-### 短剧相关API
+### 🎭 Drama Endpoints
 
-#### 获取短剧列表
+#### Get All Dramas
 ```http
 GET /api/v1/dramas
 ```
 
-查询参数：
-- `page`: 页码 (默认: 1)
-- `limit`: 每页数量 (默认: 20, 最大: 100)
-- `category`: 分类筛选
-- `search`: 搜索关键词
-- `sortBy`: 排序字段 (createdAt|rating|viewCount|releaseDate)
-- `sortOrder`: 排序方向 (asc|desc)
+Query Parameters:
+- `page`: Page number (default: 1)
+- `limit`: Items per page (default: 20, max: 100)
+- `category`: Filter by category ID
+- `search`: Search keyword
+- `sortBy`: Sort field (createdAt|rating|viewCount|releaseDate)
+- `sortOrder`: Sort direction (asc|desc)
 
-#### 获取短剧详情
+#### Get Drama Details
 ```http
 GET /api/v1/dramas/:id
 ```
 
-#### 搜索短剧
+#### Search Dramas
 ```http
-GET /api/v1/dramas/search?q=关键词
+GET /api/v1/dramas/search?q=keyword
 ```
 
-#### 获取推荐短剧
+#### Get Recommended Dramas
 ```http
 GET /api/v1/dramas/recommendations
 ```
 
-#### 获取热门短剧
+#### Get Trending Dramas
 ```http
-GET /api/v1/dramas/hot?limit=10
+GET /api/v1/dramas/trending?limit=10
 ```
 
-#### 获取最新短剧
+#### Get Latest Dramas
 ```http
+GET /api/v1/dramas/latest?limit=10
+```
+
+### 📂 Category Endpoints
+
+#### Get All Categories
+```http
+GET /api/v1/categories
+```
+
+#### Get Category Details
+```http
+GET /api/v1/categories/:id
+```
+
+### 🔍 Search Endpoints
+
+#### Advanced Search
+```http
+GET /api/v1/search?q=keyword&category=id&year=2024&rating=4.5
+```
+
+#### Search Suggestions
+```http
+GET /api/v1/search/suggestions?q=partial-keyword
+```
+
+### 👤 User Endpoints (Authentication Required)
+
+#### User Registration
+```http
+POST /api/v1/auth/register
+Content-Type: application/json
+
+{
+  "username": "user123",
+  "email": "user@example.com",
+  "password": "password123"
+}
+```
+
+#### User Login
+```http
+POST /api/v1/auth/login
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "password123"
+}
+```
+
+#### Get User Profile
+```http
+GET /api/v1/users/profile
+Authorization: Bearer <jwt-token>
+```
+
+#### Get User Favorites
+```http
+GET /api/v1/users/favorites
+Authorization: Bearer <jwt-token>
+```
+
+#### Add to Favorites
+```http
+POST /api/v1/users/favorites/:dramaId
+Authorization: Bearer <jwt-token>
+```
+
+## 🏗️ Project Structure
+
+```
+src/
+├── config/              # Configuration files
+│   ├── database.ts      # MongoDB configuration
+│   └── redis.ts         # Redis configuration
+├── controllers/         # Route controllers
+│   ├── AuthController.ts
+│   ├── DramaController.ts
+│   ├── CategoryController.ts
+│   ├── SearchController.ts
+│   └── UserController.ts
+├── middleware/          # Express middleware
+│   ├── auth.ts          # Authentication middleware
+│   ├── errorHandler.ts  # Error handling
+│   └── rateLimiter.ts   # Rate limiting
+├── models/              # Mongoose models
+│   ├── User.ts
+│   ├── Drama.ts
+│   ├── Category.ts
+│   ├── SearchHistory.ts
+│   ├── UserPreference.ts
+│   └── UserSession.ts
+├── routes/              # Express routes
+│   ├── auth.ts
+│   ├── drama.ts
+│   ├── category.ts
+│   ├── search.ts
+│   └── user.ts
+├── services/            # Business logic
+│   ├── AuthService.ts
+│   ├── DramaService.ts
+│   ├── CategoryService.ts
+│   ├── SearchService.ts
+│   ├── UserService.ts
+│   ├── RankingService.ts
+│   └── RecommendationService.ts
+├── types/               # TypeScript type definitions
+│   ├── user.ts
+│   ├── drama.ts
+│   └── search.ts
+├── utils/               # Utility functions
+│   └── logger.ts
+├── validators/          # Request validators
+│   ├── authValidators.ts
+│   ├── userValidators.ts
+│   └── searchValidators.ts
+├── scripts/             # Database scripts
+│   └── seedData.ts
+└── server.ts            # Application entry point
+```
+
+## 🗄️ Database Schema
+
+### Drama Model
+```typescript
+{
+  title: string;
+  description: string;
+  coverImage: string;
+  category: ObjectId;
+  tags: string[];
+  rating: number;
+  viewCount: number;
+  duration: number; // in minutes
+  releaseYear: number;
+  status: 'ongoing' | 'completed';
+  episodes: Array<{
+    number: number;
+    title: string;
+    duration: number;
+    videoUrl: string;
+  }>;
+  createdAt: Date;
+  updatedAt: Date;
+}
+```
+
+### User Model
+```typescript
+{
+  username: string;
+  email: string;
+  password: string; // hashed with bcrypt
+  avatar?: string;
+  preferences: {
+    favoriteCategories: string[];
+    preferredLanguage: string;
+    autoplay: boolean;
+  };
+  favorites: ObjectId[]; // Drama IDs
+  watchHistory: Array<{
+    drama: ObjectId;
+    watchedAt: Date;
+    progress: number;
+  }>;
+  createdAt: Date;
+  updatedAt: Date;
+}
+```
+
+### Category Model
+```typescript
+{
+  name: string;
+  description: string;
+  color: string;
+  icon?: string;
+  dramaCount: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
+```
+
+## 🔒 Security Features
+
+- **JWT Authentication**: Secure token-based authentication with refresh tokens
+- **Password Hashing**: bcryptjs with salt rounds for secure password storage
+- **Rate Limiting**: Configurable API rate limiting to prevent abuse
+- **CORS Protection**: Cross-origin resource sharing configuration
+- **Security Headers**: Helmet.js for enhanced security headers
+- **Input Validation**: Comprehensive request validation with express-validator
+- **Error Handling**: Secure error responses without sensitive information leakage
+- **Input Sanitization**: Protection against NoSQL injection and XSS attacks
+
+## ⚡ Performance Optimization
+
+- **Redis Caching**: Multi-layer caching strategy for frequently accessed data
+- **Database Indexing**: Optimized MongoDB indexes for fast query performance
+- **Connection Pooling**: Efficient database connection management
+- **Response Compression**: Gzip compression for reduced bandwidth usage
+- **Pagination**: Efficient data pagination for large datasets
+- **Query Optimization**: Optimized database queries with proper projections
+
+## 🧪 Testing
+
+Run the comprehensive test suite:
+
+```bash
+# Run all tests
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+
+# Run tests with coverage report
+npm run test:coverage
+
+# Run specific test file
+npm test -- --testPathPattern=drama.test.ts
+```
+
+### Test Coverage
+- Unit tests for all services and controllers
+- Integration tests for API endpoints
+- Database model tests
+- Authentication and authorization tests
+- Error handling tests
+
+## 🚀 Deployment
+
+### Docker Deployment (Recommended)
+
+1. **Build and run with Docker Compose**
+   ```bash
+   docker-compose up -d
+   ```
+
+2. **Custom Docker build**
+   ```bash
+   docker build -t short-drama-backend .
+   docker run -p 3001:3001 --env-file .env short-drama-backend
+   ```
+
+### Manual Deployment
+
+1. **Build the application**
+   ```bash
+   npm run build
+   ```
+
+2. **Set production environment variables**
+   ```bash
+   export NODE_ENV=production
+   export MONGODB_URI=your-production-mongodb-uri
+   export REDIS_URL=your-production-redis-url
+   export JWT_SECRET=your-production-jwt-secret
+   ```
+
+3. **Start the production server**
+   ```bash
+   npm start
+   ```
+
+### Environment Variables for Production
+
+```env
+NODE_ENV=production
+PORT=3001
+MONGODB_URI=mongodb://your-production-host:27017/drama-platform
+REDIS_URL=redis://your-production-redis:6379
+JWT_SECRET=your-super-secure-production-jwt-secret
+JWT_REFRESH_SECRET=your-super-secure-refresh-secret
+FRONTEND_URL=https://your-frontend-domain.com
+RATE_LIMIT_WINDOW_MS=900000
+RATE_LIMIT_MAX_REQUESTS=100
+```
+
+## 📊 Monitoring and Logging
+
+- **Winston Logging**: Structured logging with multiple transports
+- **Error Tracking**: Comprehensive error logging and tracking
+- **Performance Metrics**: Request timing and performance monitoring
+- **Health Checks**: API health check endpoints
+- **Database Monitoring**: MongoDB connection and query monitoring
+
+## 🤝 Contributing
+
+We welcome contributions! Please follow these steps:
+
+1. **Fork the repository**
+2. **Create a feature branch**
+   ```bash
+   git checkout -b feature/amazing-feature
+   ```
+3. **Make your changes**
+4. **Add tests for new functionality**
+5. **Ensure all tests pass**
+   ```bash
+   npm test
+   ```
+6. **Commit your changes**
+   ```bash
+   git commit -m 'feat: Add amazing feature'
+   ```
+7. **Push to your branch**
+   ```bash
+   git push origin feature/amazing-feature
+   ```
+8. **Open a Pull Request**
+
+### Development Guidelines
+
+- Follow TypeScript best practices
+- Write comprehensive tests for new features
+- Update documentation for API changes
+- Use conventional commit messages
+- Ensure code passes ESLint checks
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- **Express.js** for the robust web framework
+- **MongoDB** for the flexible document database
+- **Redis** for high-performance caching
+- **TypeScript** for type safety and better development experience
+- **Jest** for comprehensive testing framework
+
+## 📞 Support
+
+- **Issues**: [GitHub Issues](https://github.com/LTH1016/short-drama-platform-backend/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/LTH1016/short-drama-platform-backend/discussions)
+- **Email**: support@example.com
+
+---
+
+**Built with ❤️ by LTH1016**
+
+### 🔗 Related Projects
+
+- [Short Drama Platform Frontend](https://github.com/LTH1016/short-drama-platform) - React frontend application
+- [Short Drama Platform Mobile](https://github.com/LTH1016/short-drama-platform-mobile) - React Native mobile app (coming soon)
 GET /api/v1/dramas/new?limit=10
 ```
 
